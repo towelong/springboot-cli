@@ -28,11 +28,12 @@ public class User {
     private String email;
     private String password;
     private String openid;
-    @TableField(exist = false)
+
+    @TableField(exist = false,select = false)
     private int type;
-    @TableField(exist = false)
+    @TableField(exist = false,select = false)
     private String account;
-    @TableField(exist = false)
+    @TableField(exist = false,select = false)
     private String token;
 
     @JSONField(name = "created_at")
@@ -60,7 +61,7 @@ public class User {
      * 验证加密密码
      *
      * @param password 密文密码
-     * @return valid
+     * @return true or false
      */
     public boolean verify(String password) {
         char[] chars = password.toCharArray();

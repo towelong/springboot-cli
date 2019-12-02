@@ -2,6 +2,7 @@ package com.welong.tpl.service.Impl;
 
 import com.amdelamar.jhash.exception.InvalidHashException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.welong.tpl.Dao.UserMapper;
 import com.welong.tpl.exception.Forbidden;
 import com.welong.tpl.exception.NotFound;
@@ -77,4 +78,5 @@ public class UserServiceImpl implements UserService {
         }
         throw new Forbidden("密码错误");
    }
+
 }

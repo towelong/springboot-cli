@@ -6,13 +6,24 @@
  */
 package com.welong.tpl.controller.v1;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.welong.tpl.Dao.UserMapper;
+import com.welong.tpl.model.User;
+import com.welong.tpl.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.HashMap;
 import java.util.Map;
 
 @ResponseBody
 @RestController
+@Validated
 public class TestController {
+    @Autowired
+    UserMapper userMapper;
 
     @PostMapping("/test")
     public String test(@RequestBody Map<String, Object> map) {
@@ -26,5 +37,16 @@ public class TestController {
     public String tests() {
 
         return "code:";
+    }
+    @GetMapping("/ts")
+    public Map ts(long start,long count) {
+        Map<String,Object> map = new HashMap<>();
+        Page<User> pages = new Page<>();
+        pages.setCurrent(start);
+        pages.setSize(count);
+        Page<User> userPage = (Page<User>)userMapper.selectPage(pages,null);
+        map.put("data",userPage);
+        return map;
+
     }
 }

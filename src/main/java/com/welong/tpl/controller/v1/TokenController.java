@@ -12,6 +12,7 @@ import com.welong.tpl.service.UserService;
 import com.welong.tpl.utils.TokenUtils;
 import com.welong.tpl.utils.WxManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1")
+@Validated
 public class TokenController {
 
     @Autowired
@@ -26,7 +28,7 @@ public class TokenController {
 
     @PostMapping("/token")
     public Map getToken(@RequestBody User user){
-        Map map = new HashMap();
+        Map<String,Object> map = new HashMap();
         int type =user.getType();
         if(type != 200){
             throw new Forbidden("类型不存在");
@@ -42,7 +44,7 @@ public class TokenController {
     @PostMapping("/token/verify")
     public Map verifyToken(@RequestBody User user){
         TokenUtils tokenUtils = new TokenUtils();
-        Map map = new HashMap();
+        Map<String,Object> map = new HashMap<>();
         map.put("result",tokenUtils.VerifyToken(user.getToken()));
         return map;
     }

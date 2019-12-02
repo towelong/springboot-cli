@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping("/login")
     public Map login(@RequestBody @Validated User user) throws InvalidHashException {
         String token = userService.verifyUser(user);
-        Map map = new HashMap();
+        Map<String,String> map = new HashMap<>();
         map.put("token",token);
         return map;
     }
